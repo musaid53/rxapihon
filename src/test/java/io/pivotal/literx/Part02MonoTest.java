@@ -33,7 +33,7 @@ public class Part02MonoTest {
 		StepVerifier
 				.create(mono)
 				.expectSubscription()
-				.expectNoEvent(Duration.ofSeconds(1))
+				.expectNoEvent(Duration.ofSeconds(5))
 				.thenCancel()
 				.verify();
 	}
