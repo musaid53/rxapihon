@@ -4,6 +4,8 @@ import io.pivotal.literx.domain.User;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Locale;
+
 /**
  * Learn how to transform values.
  *
@@ -15,25 +17,28 @@ public class Part04Transform {
 
 	// TODO Capitalize the user username, firstname and lastname
 	Mono<User> capitalizeOne(Mono<User> mono) {
-		return null;
+		return mono.map(user -> new User(user.getUsername().toUpperCase(Locale.ENGLISH),
+				user.getFirstname().toUpperCase(Locale.ENGLISH), user.getLastname().toUpperCase(Locale.ENGLISH)));
 	}
 
 //========================================================================================
 
 	// TODO Capitalize the users username, firstName and lastName
 	Flux<User> capitalizeMany(Flux<User> flux) {
-		return null;
+		return flux.map(user -> new User(user.getUsername().toUpperCase(Locale.ENGLISH),
+				user.getFirstname().toUpperCase(Locale.ENGLISH), user.getLastname().toUpperCase(Locale.ENGLISH)));
 	}
 
 //========================================================================================
 
 	// TODO Capitalize the users username, firstName and lastName using #asyncCapitalizeUser
 	Flux<User> asyncCapitalizeMany(Flux<User> flux) {
-		return null;
+		return flux.flatMap(user -> asyncCapitalizeUser(user));
 	}
 
 	Mono<User> asyncCapitalizeUser(User u) {
-		return Mono.just(new User(u.getUsername().toUpperCase(), u.getFirstname().toUpperCase(), u.getLastname().toUpperCase()));
+		return Mono.just(new User(u.getUsername().toUpperCase(Locale.ENGLISH),
+				u.getFirstname().toUpperCase(Locale.ENGLISH), u.getLastname().toUpperCase(Locale.ENGLISH)));
 	}
 
 }
